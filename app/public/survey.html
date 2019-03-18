@@ -176,7 +176,7 @@
 		<footer class="footer">
 			<div class="container">
 				<p>Control Panel</p>
-				<p><a href="#" id="clear">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a> | <a href="#">Github Repo</a></p>
+				<p><a href="/api/friends">API Friends Link</a> | <a href="#">Github Repo</a></p>
 			</div>
 		</footer>
 
@@ -190,36 +190,45 @@
 
 	$(".submit").on("click", function(){
 		event.preventDefault();
-		// Here we grab the form elements
-		var newReservation = {
-			customerName: $('#reserve_name').val().trim(),
-			phoneNumber: $('#reserve_phone').val().trim(),
-			customerEmail: $('#reserve_email').val().trim(),
-			customerID: $('#reserve_uniqueID').val().trim()
-		};
-		console.log(newReservation);
+		// Here we grab the survey answers
+		var newFriend = {
+			name: $("#name").val(),
+			photo: $("#photo").val(),
+			scores: [
+				$("#q1").val(),
+				$("#q2").val(),
+				$("#q3").val(),
+				$("#q4").val(),
+				$("#q5").val(),
+				$("#q6").val(),
+				$("#q7").val(),
+				$("#q8").val(),
+				$("#q9").val(),
+				$("#q10").val()
+			]
+        };
+		console.log(newFriend);
 
 		// We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
 		var currentURL = window.location.origin;
 
-		$.post(currentURL + "/api/tables", newReservation)
+		$.post(currentURL + "/api/friends", newFriend)
 			.then(function(data){
-					// If a table is available... tell user they are booked.
-					if(data == true){
-						alert("Yay! You are officially booked!")
-					}
-					// If a table is available... tell user they on the waiting list.
-					if(data == false){
-						alert("Sorry you are on the wait list")
-					}
-
-
-					//Clear the form when submitting
-					$('#reserve_name').val("");
-					$('#reserve_phone').val("");
-					$('#reserve_email').val("");
-					$('#reserve_uniqueID').val("");
-				});
-				return false;
+				alert("You added a friend!");
+				//Clear the form when submitting
+				$('#name').val("");
+				$('#photo').val("");
+				$('#q1').val("");
+				$('#q2').val("");
+				$('#q3').val("");
+				$('#q4').val("");
+				$('#q5').val("");
+				$('#q6').val("");
+				$('#q7').val("");
+				$('#q8').val("");
+				$('#q9').val("");
+				$('#q10').val("");
+			});
+			// return false;
 	});
 </script>
