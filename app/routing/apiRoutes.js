@@ -29,7 +29,7 @@ module.exports = function(app){
             //inner loop - loop across friend's scores to get absolute value of score difference
             for (let j=0; j<friendData[i].scores.length; j++) {
                 totalDiff += Math.abs(userInput.scores[j] - friendData[i].scores[j]);
-                console.log(`TotalDiff is: ${totalDiff}`);
+                // console.log(`TotalDiff is: ${totalDiff}`);
             }
 
             //if totalDiff < topMatch.matchDiff , then set topMatch to the friendData[i] including the matchDiff amount
@@ -42,12 +42,13 @@ module.exports = function(app){
             totalDiff = 0;
         }
 
-        console.log(`Your top match is ${topMatch.name}`);
+        // console.log(`Your top match is ${topMatch.name}`);
 
-        
+
         //Push the user's input into the friends.js array of data
         friendData.push(req.body);
-        res.json(true);
+        res.json(topMatch);
+        // res.json(true);
         
     });
 

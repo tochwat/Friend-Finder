@@ -18,6 +18,7 @@
 	<script src="https://code.jquery.com/jquery.js"></script>
 
 </head>
+
 <body>
 
 	<div class="container">
@@ -175,7 +176,8 @@
 							<br>
 
 							<!-- Submit Button -->
-							<button type="submit" class="btn btn-primary submit" data-toggle="modal" data-target="#exampleModal">Submit</button>
+							<!-- <button type="submit" class="btn btn-primary submit" data-toggle="modal" data-target="#exampleModal">Submit</button> -->
+							<button type="submit" class="btn btn-primary submit" id="submit">Submit</button>
 					
 						</form>
 
@@ -195,78 +197,92 @@
 
 	</div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-		  <div class="modal-content">
-			<div class="modal-header">
-			  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			  </button>
+	<!-- Modal -->
+	<div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Your Match - why am i not stilll</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h2 id="#matchName"></h2>
+					<img id="#matchPhoto" src="" alt="match photo" width="100%" height="100%" max-width="300px" max-height="400px">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+				</div>
 			</div>
-			<div class="modal-body">
-			  ...
-			</div>
-			<div class="modal-footer">
-			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			  <button type="button" class="btn btn-primary">Save changes</button>
-			</div>
-		  </div>
-		</div>
-	  </div>
+	</div>
 
-	
+
+	<script type="text/javascript">
+
+		$(".submit").on("click", function(){
+			event.preventDefault();
+			// Here we grab the survey answers
+			var newFriend = {
+				name: $("#name").val(),
+				photo: $("#photo").val(),
+				scores: [
+					$("#q1").val(),
+					$("#q2").val(),
+					$("#q3").val(),
+					$("#q4").val(),
+					$("#q5").val(),
+					$("#q6").val(),
+					$("#q7").val(),
+					$("#q8").val(),
+					$("#q9").val(),
+					$("#q10").val()
+				]
+					};
+			// console.log(newFriend);
+
+			// We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
+			var currentURL = window.location.origin;
+
+			$.post(currentURL + "/api/friends", newFriend)
+				.then(function(data){
+			// $.post(currentURL + "/api/friends", newFriend, function(data) {
+
+					// alert("You added a friend!");
+
+					//Clear the form when submitting
+					$('#name').val("");
+					$('#photo').val("");
+					$('#q1').val("");
+					$('#q2').val("");
+					$('#q3').val("");
+					$('#q4').val("");
+					$('#q5').val("");
+					$('#q6').val("");
+					$('#q7').val("");
+					$('#q8').val("");
+					$('#q9').val("");
+					$('#q10').val("");
+
+					//Get result from AJAX post for top match name and photo
+					console.log(`Your top match is ${data.name}`);
+					// $("#matchName").text(data.name);
+					$("#matchName").text("HEY!!!!");
+					console.log(data.name)
+					$("#matchPhoto").attr('src', data.photo);
+					console.log(data.photo);
+
+					//Show the modal
+					$("#resultsModal").modal("toggle");
+					
+				});
+				
+				
+
+
+		});
+	</script>
+
 </body>
 </html>
-
-
-<script type="text/javascript">
-
-
-	$(".submit").on("click", function(){
-		event.preventDefault();
-		// Here we grab the survey answers
-		var newFriend = {
-			name: $("#name").val(),
-			photo: $("#photo").val(),
-			scores: [
-				$("#q1").val(),
-				$("#q2").val(),
-				$("#q3").val(),
-				$("#q4").val(),
-				$("#q5").val(),
-				$("#q6").val(),
-				$("#q7").val(),
-				$("#q8").val(),
-				$("#q9").val(),
-				$("#q10").val()
-			]
-        };
-		console.log(newFriend);
-
-		// We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
-		var currentURL = window.location.origin;
-
-		$.post(currentURL + "/api/friends", newFriend)
-			.then(function(data){
-				// alert("You added a friend!");
-				// $('#myModal').modal('show')
-				
-				//Clear the form when submitting
-				$('#name').val("");
-				$('#photo').val("");
-				$('#q1').val("");
-				$('#q2').val("");
-				$('#q3').val("");
-				$('#q4').val("");
-				$('#q5').val("");
-				$('#q6').val("");
-				$('#q7').val("");
-				$('#q8').val("");
-				$('#q9').val("");
-				$('#q10').val("");
-			});
-			// return false;
-	});
-</script>
