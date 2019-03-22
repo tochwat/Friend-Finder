@@ -5,17 +5,19 @@
 	<title>Friend Finder - Survey</title>
 
 	<!-- Latest compiled and minified CSS & JS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 	
 	<!-- Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
 	
-	<script src="https://code.jquery.com/jquery.js"></script>
 
 </head>
 
@@ -202,14 +204,14 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Your Match - why am i not stilll</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Your Match</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-					<h2 id="#matchName"></h2>
-					<img id="#matchPhoto" src="" alt="match photo" width="100%" height="100%" max-width="300px" max-height="400px">
+					<h2 id="matchName"></h2>
+					<img id="matchPhoto" src="" alt="match photo" width="100%" max-width="300px">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -247,7 +249,6 @@
 
 			$.post(currentURL + "/api/friends", newFriend)
 				.then(function(data){
-			// $.post(currentURL + "/api/friends", newFriend, function(data) {
 
 					// alert("You added a friend!");
 
@@ -267,11 +268,10 @@
 
 					//Get result from AJAX post for top match name and photo
 					console.log(`Your top match is ${data.name}`);
-					// $("#matchName").text(data.name);
-					$("#matchName").text("HEY!!!!");
-					console.log(data.name)
+					$("#matchName").text(data.name);
+					// console.log(data.name)
 					$("#matchPhoto").attr('src', data.photo);
-					console.log(data.photo);
+					// console.log(data.photo);
 
 					//Show the modal
 					$("#resultsModal").modal("toggle");
@@ -283,6 +283,7 @@
 
 		});
 	</script>
+	
 
 </body>
 </html>
