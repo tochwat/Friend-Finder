@@ -20,6 +20,7 @@
   "homepage": "https://github.com/tochwat/Friend-Finder#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10"
   }
 }
